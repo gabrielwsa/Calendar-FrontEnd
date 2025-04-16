@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import { LoginPage } from "../auth"
 import { CalendarPage } from "../calendar"
 
@@ -8,12 +8,15 @@ export const AppRouter = () => {
 
     return (
         <Routes>
-            {/* {
-                TODO:
+            {/* QUALQUER COISA QUE COMECE COM AUTH */}
+            {/* QUALQUER COISA QUE NÃO COMECE COM AUTH */}
+            {
                 (authStatus === 'not-authenticated')
-            } */}
-            <Route path="/auth/*" element={<LoginPage />} /> {/* QUALQUER COISA QUE COMECE COM AUTH */}
-            <Route path="/*" element={<CalendarPage />} /> {/* QUALQUER COISA QUE NÃO COMECE COM AUTH */}
+                    ? <Route path="/auth/*" element={<LoginPage />} /> 
+                    : <Route path="/*" element={<CalendarPage />} /> 
+            }
+
+            <Route path="/*" element={<Navigate to="/auth/login" />} />
         </Routes>
     )
 }
