@@ -1,8 +1,12 @@
 import Modal from 'react-modal'
 import { useState } from 'react'
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { addHours } from 'date-fns'
+import es from 'date-fns/locale/es'
+
+registerLocale('es', es)
+
 
 const customStyles = {
     content: {
@@ -18,6 +22,16 @@ const customStyles = {
         zIndex: 999
     }
 };
+
+// Estilo para garantir que o DatePicker fique por cima do modal
+const datePickerStyles = `
+  .react-datepicker-popper {
+    z-index: 1000 !important;
+  }
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+`;
 
 Modal.setAppElement('#root');
 
@@ -47,7 +61,9 @@ export const CalendarModal = () => {
 
 
     return (
-      <Modal isOpen={isOpen} onRequestClose={onCloseModal} style={customStyles} className="modal" overlayClassName="modal-fondo" closeTimeoutMS={200} >
+      <>
+        <style>{datePickerStyles}</style>
+        <Modal isOpen={isOpen} onRequestClose={onCloseModal} style={customStyles} className="modal" overlayClassName="modal-fondo" closeTimeoutMS={200} >
             <h1> Nuevo evento </h1>
             <hr />
             <form className="container grid">
@@ -68,6 +84,8 @@ export const CalendarModal = () => {
                     selected={ formValues.start }
                     onChange={ (event) => setFormValues({ ...formValues, start: event }) }
                     dateFormat="Pp"
+                    showTimeSelect
+                    locale="es"
                 />
                 </div>
 
@@ -79,6 +97,8 @@ export const CalendarModal = () => {
                     selected={ formValues.end }
                     onChange={ (event) => setFormValues({ ...formValues, end: event }) }
                     dateFormat="Pp"
+                    showTimeSelect
+                    locale="es"
                 />
                 </div>
 
@@ -120,5 +140,6 @@ export const CalendarModal = () => {
                 </button>
             </form>
       </Modal>
+      </>
     );
 }
