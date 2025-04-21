@@ -5,9 +5,9 @@ import { BrowserRouter } from 'react-router-dom'
 
 //* O CALENDARIO NAO FUNCIONA COM O MODO STRICT MODE LIGADO POR CONTA QUE JA ESTA DATADO
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter>
       <CalendarApp />
     </BrowserRouter>
-  </StrictMode>
+  // </StrictMode>
 )
