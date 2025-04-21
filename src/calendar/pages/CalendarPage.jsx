@@ -2,8 +2,8 @@ import { Calendar } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import { addHours } from 'date-fns'
-import { Navbar } from '../'
-import { localizer, getMessages } from '../'
+import { Navbar } from '../components'
+import { localizer, getMessages } from '../helpers'
 
 
 const events = [

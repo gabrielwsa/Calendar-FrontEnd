@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom"
-import { LoginPage } from "../auth"
-import { CalendarPage } from "../calendar"
+import { LoginPage } from "../auth/pages"
+import { CalendarPage } from "../calendar/pages"
 
 export const AppRouter = () => {
 
