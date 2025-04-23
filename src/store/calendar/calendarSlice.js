@@ -4,8 +4,8 @@ import { addHours } from 'date-fns';
 const tempEvent = {
         _id: new Date().getTime(),
         title: 'Cumpleaños de Gabriel',
-        start: new Date().toISOString(),
-        end: addHours(new Date(), 2).toISOString(),
+        start: new Date(),
+        end: addHours(new Date(), 2),
         bgColor: '#fafafa',
         user: {
             _id: '1',

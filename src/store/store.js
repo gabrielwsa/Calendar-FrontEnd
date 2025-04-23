@@ -6,4 +6,10 @@ export const store = configureStore({
         ui: uiSlice.reducer,
         calendar: calendarSlice.reducer,
     },
+
+    //! PARA EVITAR O ERRO DE SERIALIZATION DO REDUX
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 });

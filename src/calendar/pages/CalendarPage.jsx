@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Calendar } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
-import { addHours } from 'date-fns'
 import { Navbar, CalendarEvent, CalendarModal } from '../components'
 import { localizer, getMessages } from '../helpers'
 import { useUiStore, useCalendarStore } from '../../hooks';
@@ -11,13 +10,6 @@ export const CalendarPage = () => {
 
     const { openDateModal } = useUiStore();
     const { events, setActiveEvent } = useCalendarStore();
-
-    //! Reconversão de strings ISO para objetos Date antes de renderizar para que o calendário funcione corretamente
-    const parsedEvents = events.map(event => ({
-        ...event,
-        start: new Date(event.start),
-        end: new Date(event.end),
-    }));
 
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week'); // SE NAO TEM LASTVIEW, SETA WEEK
 
@@ -56,7 +48,7 @@ export const CalendarPage = () => {
                 localizer={ localizer } 
                 defaultView={ lastView }
                 // defaultView='agenda' // SERVE PARA MOSTRA UMA VISTA POR DEFEITO
-                events={ parsedEvents } 
+                events={ events } 
                 startAccessor="start" 
                 endAccessor="end" 
                 style={{ height: 500 }} 
