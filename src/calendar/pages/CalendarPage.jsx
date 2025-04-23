@@ -5,24 +5,19 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { addHours } from 'date-fns'
 import { Navbar, CalendarEvent, CalendarModal } from '../components'
 import { localizer, getMessages } from '../helpers'
-import { useUiStore } from '../../hooks/useUiStore';
-
-const events = [
-    {
-        title: 'Cumpleaños de Gabriel',
-        start: new Date(),
-        end: addHours(new Date(), 2),
-        bgColor: '#fafafa',
-        user: {
-            _id: '1',
-            name: 'Gabriel',
-        }
-    }
-]
+import { useUiStore, useCalendarStore } from '../../hooks';
 
 export const CalendarPage = () => {
 
     const { openDateModal } = useUiStore();
+    const { events, setActiveEvent } = useCalendarStore();
+
+    //! Reconversão de strings ISO para objetos Date antes de renderizar para que o calendário funcione corretamente
+    const parsedEvents = events.map(event => ({
+        ...event,
+        start: new Date(event.start),
+        end: new Date(event.end),
+    }));
 
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week'); // SE NAO TEM LASTVIEW, SETA WEEK
 
@@ -40,12 +35,11 @@ export const CalendarPage = () => {
     }
   
     const onDoubleClick = (event) => {
-        // console.log({ doubleClick: event });
         openDateModal();
     }
 
     const onSelect = (event) => {
-        console.log({ select: event });
+        setActiveEvent(event);
     }
 
     const onViewChanged = (event) => {
@@ -62,7 +56,7 @@ export const CalendarPage = () => {
                 localizer={ localizer } 
                 defaultView={ lastView }
                 // defaultView='agenda' // SERVE PARA MOSTRA UMA VISTA POR DEFEITO
-                events={ events } 
+                events={ parsedEvents } 
                 startAccessor="start" 
                 endAccessor="end" 
                 style={{ height: 500 }} 
