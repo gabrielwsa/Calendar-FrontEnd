@@ -6,6 +6,7 @@ import { addHours, differenceInSeconds } from 'date-fns'
 import es from 'date-fns/locale/es'
 import Swal from 'sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
+import { useUiStore } from '../../hooks/useUiStore';
 
 registerLocale('es', es)
 
@@ -39,7 +40,7 @@ Modal.setAppElement('#root');
 
 export const CalendarModal = () => {
 
-    const [ isOpen, setIsOpen ] = useState(true);
+    const { isDateModalOpen, closeDateModal } = useUiStore();
     const [ formSubmitted, setFormSubmitted ] = useState(false);
     const [ formValues, setFormValues ] = useState({
         title: '',
@@ -65,8 +66,7 @@ export const CalendarModal = () => {
     }
 
     const onCloseModal = () => {
-        console.log('onCloseModal');
-        setIsOpen(false);
+        closeDateModal();
     }
 
     const onSubmit = ( event ) => {
@@ -86,7 +86,7 @@ export const CalendarModal = () => {
     return (
       <>
         <style>{datePickerStyles}</style>
-        <Modal isOpen={isOpen} onRequestClose={onCloseModal} style={customStyles} className="modal" overlayClassName="modal-fondo" closeTimeoutMS={200} >
+        <Modal isOpen={isDateModalOpen} onRequestClose={onCloseModal} style={customStyles} className="modal" overlayClassName="modal-fondo" closeTimeoutMS={200} >
             <h1> Nuevo evento </h1>
             <hr />
             <form className="container grid" onSubmit={onSubmit}>
