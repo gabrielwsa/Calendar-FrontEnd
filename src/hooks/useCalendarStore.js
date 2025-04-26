@@ -49,7 +49,7 @@ export const useCalendarStore = () => {
             dispatch(onDeleteEvent());
         } catch (error) {
             console.log('Error al eliminar evento');
-            console.log(error);
+            Swal.fire('Error al eliminar evento', error.response.data.msg, 'error');
         }
     }
 
