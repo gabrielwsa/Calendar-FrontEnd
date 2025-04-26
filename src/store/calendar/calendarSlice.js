@@ -33,25 +33,25 @@ export const calendarSlice = createSlice({
         /**
          * Atualiza um evento existente na lista
          * Usa o método map() para criar um novo array, substituindo apenas o evento específico
-         * Compara o _id do payload com cada evento para identificar qual deve ser atualizado
+         * Compara o id do payload com cada evento para identificar qual deve ser atualizado
          * Após atualizar, limpa o evento ativo setando como null
          * @param {object} state - Estado atual do Redux
          * @param {object} payload - Evento atualizado com os novos dados
          */
         onUpdateEvent: (state, { payload }) => {
-            state.events = state.events.map(event => event._id === payload._id ? payload : event);
+            state.events = state.events.map(event => event.id === payload.id ? payload : event);
             state.activeEvent = null;
         },
 
         /**
          * Remove o evento ativo da lista de eventos
          * Utiliza o método filter() para criar um novo array sem o evento ativo
-         * Mantém apenas os eventos cujo _id é diferente do evento ativo
+         * Mantém apenas os eventos cujo id é diferente do evento ativo
          * Após remover, limpa o evento ativo setando como null
          * @param {object} state - Estado atual do Redux
          */
         onDeleteEvent: ( state ) => {
-            state.events = state.events.filter(event => event._id !== state.activeEvent._id);
+            state.events = state.events.filter(event => event.id !== state.activeEvent.id);
             state.activeEvent = null;
         },
 
