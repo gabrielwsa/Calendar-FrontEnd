@@ -1,4 +1,4 @@
-import { authSlice, onLogin, onLogout } from '../../../src/store/auth/authSlice';
+import { authSlice, onLogin, onLogout, clearErrorMessage } from '../../../src/store/auth/authSlice';
 import { initialState, authenticatedState, notAuthenticatedState } from '../../__fixtures__/authSlice';
 import { testUserCredentials } from '../../__fixtures__/testUser';
 
@@ -23,5 +23,12 @@ describe('authSlice', () => {
             user: {},
             errorMessage: undefined
         });
+    });
+
+    test('should clear error message', () => {
+        const errorMessage = 'Invalid credentials';
+        const state = authSlice.reducer(authenticatedState, onLogout(errorMessage));
+        const newState = authSlice.reducer(state, clearErrorMessage());
+        expect(newState.errorMessage).toBe(undefined);
     });
 });
