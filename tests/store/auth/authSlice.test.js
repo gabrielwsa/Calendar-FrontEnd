@@ -25,6 +25,16 @@ describe('authSlice', () => {
         });
     });
 
+    test('should handle error message when logging out', () => {
+        const errorMessage = 'Invalid credentials';
+        const state = authSlice.reducer(authenticatedState, onLogout(errorMessage));
+        expect(state).toEqual({
+            status: 'not-authenticated',
+            user: {},
+            errorMessage: errorMessage
+        });
+    });
+
     test('should clear error message', () => {
         const errorMessage = 'Invalid credentials';
         const state = authSlice.reducer(authenticatedState, onLogout(errorMessage));
