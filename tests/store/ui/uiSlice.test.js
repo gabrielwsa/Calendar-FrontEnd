@@ -1,4 +1,4 @@
-import { uiSlice, onOpenDateModal, onCloseDateModal } from '../../src/store/ui/uiSlice';
+import { uiSlice, onOpenDateModal, onCloseDateModal } from '../../../src/store/ui/uiSlice';
 
 describe('uiSlice', () => {
     test('should return the initial state', () => {
