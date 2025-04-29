@@ -9,7 +9,7 @@ export const CalendarEvent = memo(({ event }) => {
         <div className="calendar-event">
             <div className="calendar-event-title">{ title }</div>
             {notes && <div className="calendar-event-notes">{ notes }</div>}
-            <div className="calendar-event-user">{ user.name }</div>
+            <div className="calendar-event-user">{ user && user.name ? user.name : 'Usuário' }</div>
         </div>
     )
 })

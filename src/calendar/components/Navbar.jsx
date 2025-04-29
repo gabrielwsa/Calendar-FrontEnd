@@ -9,7 +9,7 @@ export const Navbar = () => {
         <nav className="navbar navbar-custom">
             <span className="navbar-brand">
                 <i className="fas fa-calendar-alt"></i>
-                <span className="user-name">{user.name.toUpperCase()}</span>
+                <span className="user-name">{user && user.name ? user.name.toUpperCase() : 'USUÁRIO'}</span>
             </span>
 
             <button className="btn btn-logout" onClick={startLogout}>

@@ -6,5 +6,6 @@ export const converEventsDate = (events = []) => {
         id: event.id,
         end: parseISO(event.end),
         start: parseISO(event.start),
+        user: event.user || { name: 'Usuário', _id: '0' }
     }));
 }
