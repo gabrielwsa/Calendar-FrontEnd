@@ -1,0 +1,72 @@
+.fab-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.fab-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.3rem;
+}
+
+.fab-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.fab-button:active {
+  transform: translateY(-2px);
+}
+
+.fab-add {
+  background-color: #347cf7;
+  color: white;
+}
+
+.fab-add:hover {
+  background-color: #2463c8;
+}
+
+.fab-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.fab-delete:hover {
+  background-color: #bd2130;
+}
+
+@media screen and (max-width: 768px) {
+  .fab-container {
+    bottom: 20px;
+    right: 20px;
+    gap: 10px;
+  }
+  
+  .fab-button {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .fab-button {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+} 

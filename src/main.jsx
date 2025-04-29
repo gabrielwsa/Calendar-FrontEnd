@@ -7,7 +7,10 @@ import './styles.css'
 //* O CALENDARIO NAO FUNCIONA COM O MODO STRICT MODE LIGADO POR CONTA QUE JA ESTA DATADO
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter future={{
+      v7_startTransition: true,
+      v7_relativeSplatPath: true
+    }}>
       <CalendarApp />
     </BrowserRouter>
   // </StrictMode>

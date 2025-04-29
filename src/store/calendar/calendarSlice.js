@@ -19,6 +19,14 @@ export const calendarSlice = createSlice({
         },
 
         /**
+         * Limpa o evento ativo, definindo-o como null
+         * @param {object} state - Estado atual do Redux
+         */
+        onClearActiveEvent: (state) => {
+            state.activeEvent = null;
+        },
+
+        /**
          * Adiciona um novo evento ao array de eventos
          * Utiliza o método push() do JavaScript para adicionar ao final do array
          * Após adicionar, limpa o evento ativo setando como null
@@ -78,4 +86,4 @@ export const calendarSlice = createSlice({
     }
 });
 
-export const { onSetActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent, onLoadEvents, onLogoutCalendar } = calendarSlice.actions;
+export const { onSetActiveEvent, onClearActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent, onLoadEvents, onLogoutCalendar } = calendarSlice.actions;

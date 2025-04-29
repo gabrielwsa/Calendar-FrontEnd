@@ -3,6 +3,45 @@
     opacity: 0;
 }
 
+/* Estilo global - fundo da página */
+body {
+    background-color: #e6e6e6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para DatePicker */
+.react-datepicker-wrapper {
+    width: 100%;
+    position: relative;
+    z-index: 1500 !important;
+}
+
+.react-datepicker-popper {
+    z-index: 1600 !important;
+}
+
+/* Estilo específico para o primeiro DatePicker */
+.date-picker-popper-higher {
+    z-index: 999999 !important;
+    position: absolute !important;
+}
+
+.react-datepicker__input-container input {
+    width: 100%;
+}
+
+/* Estilos para os contêineres de campos do formulário */
+.date-fields-container {
+    position: relative;
+    z-index: 2000;
+}
+
+.other-fields-container {
+    position: relative;
+    z-index: 1000;
+}
+
 .ReactModalPortal .ReactModal__Overlay {
     align-items: center;
     display: flex;
@@ -47,15 +86,4 @@
     padding: 25px;
     position: fixed;
     right: 25px;
-}
-
-/* Fab */
-.fab-delete {
-    border-radius: 100%;
-    bottom: 25px;
-    font-size: 30px;
-    position: fixed;
-    left: 25px;
-    width: 70px;
-    height: 70px;
 }

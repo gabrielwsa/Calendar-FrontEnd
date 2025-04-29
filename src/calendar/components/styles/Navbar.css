@@ -1,0 +1,107 @@
+/* Estilos para o Navbar moderno com transparência */
+.navbar-custom {
+  background-color: rgba(33, 37, 41, 0.75) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  margin: 0.2rem 0.2rem 2rem 0.2rem !important;
+  height: auto;
+  
+  /* Estilos para fixar no topo */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: calc(100% - 0.4rem);
+  z-index: 1000;
+}
+
+/* Espaçador para manter o layout correto quando o navbar é fixo */
+.navbar-spacer {
+  height: 30px; /* Ajuste conforme a altura do navbar */
+  margin-bottom: 2rem;
+}
+
+.navbar-custom .navbar-brand {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: white;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.navbar-custom .navbar-brand i {
+  font-size: 1.2rem;
+  color: #61dafb;
+  margin-right: 0.5rem;
+}
+
+.btn-logout {
+  background: linear-gradient(45deg, #ff5252, #ff7675);
+  border: none;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 25px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(255, 82, 82, 0.3);
+  font-size: 0.9rem;
+}
+
+.btn-logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 82, 82, 0.4);
+  background: linear-gradient(45deg, #ff4242, #ff6565);
+}
+
+.btn-logout i {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Animação suave para o nome do usuário */
+.user-name {
+  position: relative;
+  padding-bottom: 2px;
+  user-select: none;
+}
+
+.user-name::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #61dafb;
+  transition: width 0.3s ease;
+}
+
+.navbar-brand:hover .user-name::after {
+  width: 100%;
+}
+
+/* Media queries para responsividade */
+@media (max-width: 768px) {
+  .navbar-custom {
+    padding: 0.4rem 0.8rem;
+    margin: 0.2rem 0.2rem 1.5rem 0.2rem !important;
+    /* Ajuste para telas menores */
+    width: calc(100% - 0.4rem);
+  }
+  
+  .navbar-spacer {
+    height: 50px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .btn-logout {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+  }
+} 

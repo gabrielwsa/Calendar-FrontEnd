@@ -1,44 +1,178 @@
 .login-container{
-    margin-top: 15%;
+    margin-top: 5%;
+    padding: 0 15px;
 }
+
+@media (min-width: 768px) {
+    .login-container{
+        margin-top: 10%;
+    }
+}
+
 .login-form-1{
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     padding: 5%;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    transform-origin: center;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
-.login-form-1 h3{
-    text-align: center;
-    color: #333;
-}
+
 .login-form-2{
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     padding: 5%;
     background: #0062cc;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    transform-origin: center;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
-.login-form-2 h3{
+
+.fade-in {
+    animation-name: fadeIn;
+}
+
+.login-form-1 h3, .login-form-2 h3{
     text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.login-form-1 h3{
+    color: #333;
+}
+
+.login-form-2 h3{
     color: #fff;
 }
+
 .login-container form{
-    padding: 10%;
+    padding: 3%;
 }
-.btnSubmit
-{
-    width: 50%;
-    border-radius: 1rem;
-    padding: 1.5%;
+
+@media (min-width: 768px) {
+    .login-container form{
+        padding: 7%;
+    }
+}
+
+.btnSubmit {
+    width: 100%;
+    border-radius: 25px;
+    padding: 8px 16px;
     border: none;
     cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 0.95rem;
 }
+
 .login-form-1 .btnSubmit{
     color: #fff;
     background-color: #0062cc;
+    will-change: transform, box-shadow;
 }
+
+.login-form-1 .btnSubmit:hover {
+    background-color: #004ea3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
 .login-form-2 .btnSubmit{
     background-color: #fff;
     color: #0062cc;
+    will-change: transform, box-shadow;
 }
+
+.login-form-2 .btnSubmit:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    border-radius: 20px;
+    padding: 8px 15px;
+    height: auto;
+    font-size: 0.95rem;
+    max-height: 40px;
+}
+
+button.btn {
+    border-radius: 25px;
+    padding: 8px 16px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 0.95rem;
+    will-change: transform, box-shadow;
+}
+
+.login-form-1 button.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form-2 button.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Animações otimizadas */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0) scale3d(0.9, 0.9, 1);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translate3d(20px, 0, 0);
+        opacity: 0;
+    }
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+.form-group {
+    animation: slideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+}
+
+.form-group:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
 .login-form-2 .ForgetPwd{
     color: #fff;
     font-weight: 600;

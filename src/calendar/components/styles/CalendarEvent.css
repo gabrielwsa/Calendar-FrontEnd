@@ -1,0 +1,49 @@
+.calendar-event {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.calendar-event-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+  font-size: 0.95rem;
+}
+
+.calendar-event-notes {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.9;
+}
+
+.calendar-event-user {
+  font-size: 0.75rem;
+  margin-top: auto;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+  .calendar-event-title {
+    font-size: 0.85rem;
+    margin-bottom: 1px;
+  }
+  
+  .calendar-event-notes,
+  .calendar-event-user {
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .calendar-event-notes,
+  .calendar-event-user {
+    display: none;
+  }
+} 

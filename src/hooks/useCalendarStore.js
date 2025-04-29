@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { onSetActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent, onLoadEvents } from '../store';
+import { onSetActiveEvent, onClearActiveEvent, onAddNewEvent, onUpdateEvent, onDeleteEvent, onLoadEvents } from '../store';
 import { calendarApi } from '../api';
 import { converEventsDate } from '../calendar/helpers';
 import Swal from 'sweetalert2';
@@ -21,6 +21,13 @@ export const useCalendarStore = () => {
      */
     const setActiveEvent = (calendarEvent) => {
         dispatch(onSetActiveEvent(calendarEvent));
+    }
+
+    /**
+     * Limpa o evento ativo no estado do Redux
+     */
+    const clearActiveEvent = () => {
+        dispatch(onClearActiveEvent());
     }
 
     /**
@@ -94,6 +101,7 @@ export const useCalendarStore = () => {
 
         // Métodos
         setActiveEvent,
+        clearActiveEvent,
         startSavingEvent,
         DeletingEvent,
         startLoadingEvents

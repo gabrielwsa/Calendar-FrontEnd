@@ -21,17 +21,25 @@ const customStyles = {
     },
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
-        zIndex: 999
+        zIndex: 1000
     }
 };
 
 // Estilo para garantir que o DatePicker fique por cima do modal
 const datePickerStyles = `
   .react-datepicker-popper {
-    z-index: 1000 !important;
+    z-index: 10001 !important;
   }
   .react-datepicker-wrapper {
     width: 100%;
+    position: relative;
+    z-index: 2000 !important;
+  }
+  .react-datepicker__input-container {
+    width: 100%;
+  }
+  .form-group {
+    position: relative;
   }
 `;
 
@@ -49,7 +57,7 @@ export const CalendarModal = () => {
     const { isDateModalOpen, closeDateModal } = useUiStore();
     // startSavingEvent é responsável por enviar a requisição ao backend
     // onde o mecanismo de bloqueio por usuário é aplicado
-    const { activeEvent, startSavingEvent } = useCalendarStore();
+    const { activeEvent, startSavingEvent, clearActiveEvent } = useCalendarStore();
     const [ formSubmitted, setFormSubmitted ] = useState(false);
     const [ formValues, setFormValues ] = useState({
         title: '',
@@ -84,6 +92,11 @@ export const CalendarModal = () => {
 
     const onCloseModal = () => {
         closeDateModal();
+        // Limpa o evento ativo quando o modal é fechado sem salvar
+        // Isso evita que o botão de excluir apareça indevidamente
+        if (!activeEvent?.id) {
+            clearActiveEvent();
+        }
     }
 
     /**
@@ -119,77 +132,75 @@ export const CalendarModal = () => {
             <h1> Nuevo evento </h1>
             <hr />
             <form className="container grid" onSubmit={onSubmit}>
-                <div className="form-group mb-2">
-                <label className='col-12'>Fecha y hora inicio</label>
-                {/* 
-                    * Quando selecionamos uma data no DatePicker:
-                    * 1. O event recebido é um objeto Date (exemplo: 2024-03-20T10:30:00)
-                    * 2. Fazemos spread (...formValues) para manter todos os outros valores do form (title, notes, end)
-                    * 3. Atualizamos APENAS a propriedade 'start' com a nova data (start: event)
-                    * 4. start: event - Aqui estamos atualizando especificamente a propriedade 'start' do estado formValues com o novo valor de data/hora selecionado no DatePicker. O 'event' contém o objeto Date com a nova data/hora escolhida pelo usuário. Isso permite que o formulário mantenha os valores anteriores (title, notes, end) e apenas atualize o campo de data/hora inicial.
-                    * 5. Se o estado anterior era { title: "Reunião", notes: "", start: "2024-03-19", end: "2024-03-19" }
-                    * 6. Ao selecionar 20/03/2024, ficará { title: "Reunião", notes: "", start: "2024-03-20", end: "2024-03-19" }
-                    * 7. Apenas o start é atualizado, mantendo os outros valores intactos
-                */}
-                <DatePicker
-                    className='form-control col-12'
-                    selected={ formValues.start }
-                    onChange={ (event) => setFormValues({ ...formValues, start: event }) }
-                    dateFormat="Pp"
-                    showTimeSelect
-                    locale="es"
-                />
-                </div>
+                
+                {/* Campos de data - agora em uma div separada com z-index maior */}
+                <div className="date-fields-container" style={{ position: 'relative', zIndex: 2000 }}>
+                    <div className="form-group mb-2" style={{ position: 'relative', zIndex: 3000 }}>
+                        <label className='col-12'>Fecha y hora inicio</label>
+                        <div style={{ position: 'relative', zIndex: 9999 }}>
+                            <DatePicker
+                                className='form-control col-12'
+                                selected={ formValues.start }
+                                onChange={ (event) => setFormValues({ ...formValues, start: event }) }
+                                dateFormat="Pp"
+                                showTimeSelect
+                                locale="es"
+                                popperClassName="date-picker-popper-higher"
+                            />
+                        </div>
+                    </div>
 
-                <div className="form-group mb-2">
-                <label className='col-12'>Fecha y hora fin</label>
-                <DatePicker
-                    minDate={ formValues.start }
-                    className="form-control col-12"
-                    selected={ formValues.end }
-                    onChange={ (event) => setFormValues({ ...formValues, end: event }) }
-                    dateFormat="Pp"
-                    showTimeSelect
-                    locale="es"
-                />
+                    <div className="form-group mb-2" style={{ position: 'relative', zIndex: 2500 }}>
+                        <label className='col-12'>Fecha y hora fin</label>
+                        <div style={{ position: 'relative', zIndex: 8888 }}>
+                            <DatePicker
+                                minDate={ formValues.start }
+                                className="form-control col-12"
+                                selected={ formValues.end }
+                                onChange={ (event) => setFormValues({ ...formValues, end: event }) }
+                                dateFormat="Pp"
+                                showTimeSelect
+                                locale="es"
+                                popperClassName="date-picker-popper-higher"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <hr />
-                <div className="form-group mb-2">
-                <label>Titulo y notas</label>
-                <input
-                    type="text"
-                    className={`form-control ${titleClass}`}
-                    placeholder="Título del evento"
-                    name="title"
-                    autoComplete="off"
-                    value={ formValues.title }
-                    onChange={ onInputChange }
-                />
-                <small id="emailHelp" className="form-text text-muted">
-                    Una descripción corta
-                </small>
-                </div>
+                
+                {/* Demais campos com z-index menor */}
+                <div className="other-fields-container" style={{ position: 'relative', zIndex: 1000 }}>
+                    <div className="form-group mb-2">
+                    <label>Titulo y notas</label>
+                    <input
+                        type="text"
+                        className={`form-control ${titleClass}`}
+                        placeholder="Título del evento"
+                        name="title"
+                        autoComplete="off"
+                        value={ formValues.title }
+                        onChange={ onInputChange }
+                    />
+                    <small id="emailHelp" className="form-text text-muted">
+                        Una descripción corta
+                    </small>
+                    </div>
 
-                <div className="form-group mb-2">
-                {/* 
-                  * Campo de notas do evento - protegido pelo mecanismo de bloqueio
-                  * Quando o usuário edita este campo e tenta salvar, 
-                  * o backend verifica se ele é o proprietário do evento
-                  * antes de permitir a atualização
-                */}
-                <textarea
-                    type="text"
-                    className="form-control"
-                    placeholder="Notas"
-                    rows="5"
-                    name="notes"
-                    value={ formValues.notes }
-                    onChange={ onInputChange }
-                ></textarea>
-                <small id="emailHelp" className="form-text text-muted">
-                    Información adicional
-                </small>
+                    <div className="form-group mb-2">
+                    <textarea
+                        type="text"
+                        className="form-control"
+                        placeholder="Notas"
+                        rows="5"
+                        name="notes"
+                        value={ formValues.notes }
+                        onChange={ onInputChange }
+                    ></textarea>
+                    <small id="emailHelp" className="form-text text-muted">
+                        Información adicional
+                    </small>
+                    </div>
                 </div>
 
                 <button type="submit" className="btn btn-outline-primary btn-block">

@@ -1,4 +1,5 @@
 import { useUiStore, useCalendarStore } from "../../hooks"
+import "./styles/FabButtons.css";
 
 export const FabAddNew = () => {
     
@@ -22,7 +23,7 @@ export const FabAddNew = () => {
 
 
     return (
-        <button className="btn btn-primary fab" onClick={onClickNew}>
+        <button className="fab-button fab-add" onClick={onClickNew}>
             <i className="fas fa-plus"></i>
         </button>
     )
